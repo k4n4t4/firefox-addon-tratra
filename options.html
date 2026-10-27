@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>tratra 設定</title>
+  <style>
+    body {
+      font-family: -apple-system, "Segoe UI", "Hiragino Sans", "Noto Sans JP", sans-serif;
+      max-width: 640px; margin: 40px auto; padding: 0 20px;
+      color: #1a1a1a; background: #fafafa;
+    }
+    h1 { font-size: 20px; border-bottom: 2px solid #4a90d9; padding-bottom: 8px; }
+    h2 { font-size: 16px; margin: 0 0 12px 0; }
+    .card { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 20px; margin-bottom: 16px; }
+    label { display: block; font-weight: 600; margin-bottom: 8px; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .field { margin-bottom: 12px; }
+    select, input[type="number"] {
+      width: 100%; box-sizing: border-box; padding: 10px 12px; font-size: 14px;
+      border: 1px solid #bbb; border-radius: 6px; background: #fff;
+    }
+    #combo-box {
+      width: 100%; box-sizing: border-box; padding: 12px; font-size: 16px;
+      font-family: monospace; border: 2px solid #bbb; border-radius: 6px;
+      background: #f5f5f5; text-align: center; cursor: pointer; outline: none;
+    }
+    #combo-box.recording { border-color: #4a90d9; background: #eaf3fc; }
+    #combo-box.invalid   { border-color: #d94a4a; background: #fdeaea; }
+    .hint { font-size: 13px; color: #666; margin: 8px 0 0 0; }
+    .warn {
+      font-size: 13px; color: #a05a00; background: #fff6e0;
+      border: 1px solid #f0d090; border-radius: 4px; padding: 8px 10px;
+      margin-top: 10px; display: none;
+    }
+    .warn.show { display: block; }
+    .btn-row { margin-top: 16px; display: flex; gap: 10px; }
+    button {
+      padding: 10px 20px; font-size: 14px; border-radius: 6px;
+      border: 1px solid #ccc; background: #f0f0f0; cursor: pointer;
+    }
+    button.primary { background: #4a90d9; border-color: #3a7bc0; color: #fff; font-weight: 600; }
+    button.primary:hover { background: #3a7bc0; }
+    button:hover { background: #e0e0e0; }
+    #status { margin-left: auto; align-self: center; color: #2a8a2a; font-weight: 600; opacity: 0; transition: opacity .3s; }
+    #status.show { opacity: 1; }
+    .reserved-list { font-size: 12px; color: #888; line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <h1>tratra 設定</h1>
+
+  <div class="card">
+    <h2>翻訳設定（往復翻訳）</h2>
+    <div class="row">
+      <div class="field">
+        <label for="source-lang">元言語（source）</label>
+        <select id="source-lang">
+          <option value="auto">自動検出 (auto)</option>
+          <option value="en">英語 (en)</option>
+          <option value="ja">日本語 (ja)</option>
+          <option value="zh-CN">中国語（簡体） (zh-CN)</option>
+          <option value="zh-TW">中国語（繁体） (zh-TW)</option>
+          <option value="ko">韓国語 (ko)</option>
+          <option value="fr">フランス語 (fr)</option>
+          <option value="de">ドイツ語 (de)</option>
+          <option value="es">スペイン語 (es)</option>
+          <option value="it">イタリア語 (it)</option>
+          <option value="pt">ポルトガル語 (pt)</option>
+          <option value="ru">ロシア語 (ru)</option>
+          <option value="ar">アラビア語 (ar)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="pivot-lang">経由言語（pivot）</label>
+        <select id="pivot-lang">
+          <option value="en">英語 (en)</option>
+          <option value="ja">日本語 (ja)</option>
+          <option value="zh-CN">中国語（簡体） (zh-CN)</option>
+          <option value="zh-TW">中国語（繁体） (zh-TW)</option>
+          <option value="ko">韓国語 (ko)</option>
+          <option value="fr">フランス語 (fr)</option>
+          <option value="de">ドイツ語 (de)</option>
+          <option value="es">スペイン語 (es)</option>
+          <option value="it">イタリア語 (it)</option>
+          <option value="pt">ポルトガル語 (pt)</option>
+          <option value="ru">ロシア語 (ru)</option>
+          <option value="ar">アラビア語 (ar)</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="field">
+        <label for="target-lang">行き先言語（target）</label>
+        <select id="target-lang">
+          <option value="en">英語 (en)</option>
+          <option value="ja">日本語 (ja)</option>
+          <option value="zh-CN">中国語（簡体） (zh-CN)</option>
+          <option value="zh-TW">中国語（繁体） (zh-TW)</option>
+          <option value="ko">韓国語 (ko)</option>
+          <option value="fr">フランス語 (fr)</option>
+          <option value="de">ドイツ語 (de)</option>
+          <option value="es">スペイン語 (es)</option>
+          <option value="it">イタリア語 (it)</option>
+          <option value="pt">ポルトガル語 (pt)</option>
+          <option value="ru">ロシア語 (ru)</option>
+          <option value="ar">アラビア語 (ar)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="wait-ms">経由後の待機時間 (ms)</label>
+        <input id="wait-ms" type="number" min="0" step="100" placeholder="1500">
+        <p class="hint">2回目の翻訳前に待機します（レート制限対策）</p>
+      </div>
+    </div>
+    <p class="hint">動作: 元言語 → 経由言語 → 行き先言語 の順で翻訳し、選択範囲を行き先言語の翻訳結果で置換します。</p>
+  </div>
+
+  <div class="card">
+    <label for="combo-box">翻訳を実行するショートカットキー</label>
+    <input id="combo-box" readonly placeholder="クリックしてキーを入力" autocomplete="off">
+    <p class="hint">下のボックスをクリックしてから、割り当てたいキー（例: Ctrl+Shift+T、Alt+Y など）を押してください。修飾キー（Ctrl / Alt / Shift / Meta）との組み合わせが必要です。</p>
+    <div id="warn" class="warn"></div>
+  </div>
+
+  <div class="card">
+    <div class="btn-row">
+      <button id="save" class="primary">保存</button>
+      <button id="reset">初期値（Ctrl+Y）に戻す</button>
+      <span id="status">保存しました ✓</span>
+    </div>
+    <p class="hint">保存すると、開いているすべてのタブに即時反映されます（タブの再読み込みは不要です）。</p>
+  </div>
+
+  <div class="card">
+    <strong>ブラウザが予約している主な組み合わせ（推奨しない）</strong>
+    <ul class="reserved-list">
+      <li>Ctrl+T（新しいタブ）/ Ctrl+W（タブを閉じる）/ Ctrl+N（新しいウィンドウ）</li>
+      <li>Ctrl+L（アドレスバーへ）/ Ctrl+K（検索へ）/ Ctrl+J（ダウンロード）</li>
+      <li>Ctrl+R / F5（再読み込み）/ Ctrl+Q（終了）</li>
+      <li>Ctrl+Tab / Ctrl+PageUp・Down（タブ切替）</li>
+    </ul>
+    <p class="hint">※ ページ側が独自に使っているキー（例: 一部サイトの Ctrl+Y=やり直し）は拡張機能が優先して横取りします。</p>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>
