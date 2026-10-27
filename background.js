@@ -20,11 +20,13 @@ async function gtranslate(text, sl, tl, n = 0) {
 }
 
 async function translateThrough(text, sourceLang, pivotLang, targetLang, waitMs) {
+    console.log("[tratra] translate start", { sourceLang, pivotLang, targetLang, len: text.length });
     const mid = await gtranslate(text, sourceLang, pivotLang);
     if (typeof waitMs === "number" && waitMs > 0) {
         await new Promise((r) => setTimeout(r, waitMs));
     }
     const out = await gtranslate(mid, pivotLang, targetLang);
+    console.log("[tratra] translate end", { midLen: mid.length, resultLen: out.length });
     return { ok: true, mid: mid, result: out };
 }
 
